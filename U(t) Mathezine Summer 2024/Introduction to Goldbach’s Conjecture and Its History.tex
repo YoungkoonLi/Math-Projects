@@ -1,0 +1,205 @@
+\documentclass{article}
+\usepackage{hyperref, amsfonts, amsmath, amsthm, csquotes, wrapfig, array}
+\usepackage{CJKutf8}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper, left= 1.2in, right = 1.2in, bottom=1.2in]{geometry}
+
+\title{Introduction to Goldbach's Conjecture and Its History}
+\author{Yangkun Li}
+\date{Summer 2024}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+A cornerstone of number theory, Goldbach's Conjecture has been a source of fascination and frustration for mathematicians for nearly three centuries. The conjecture states that:
+\begin{center}
+\textbf{Every even number $> 2$ can be written as the sum of two prime numbers\footnotemark{}.}
+\end{center} \footnotetext{We will shorten \textquote{prime numbers} to \textquote{primes} for this article.}
+This conjecture appears deceptively simple, yet it has eluded proof to this day, and remains one of the oldest unsolved problems in mathematics. However, a series of remarkable partial results from brilliant mathematicians over the last century has shed light on its validity and deepened our understanding of prime numbers. This article explores the history of one of the world's greatest puzzles and provides a basic introduction to the main methods used to solve it, allowing us to discover the deeper mystery that lies beneath Goldbach's conjecture.
+
+\section*{Origins}
+In 1742, Christian Goldbach wrote a letter to the legendary mathematician Leonhard Euler, in which he proposed the following conjectures\cite{letter}:
+\begin{equation}
+    \begin{aligned}
+        &\emph{Every integer that can be written as the sum of two primes can also be written} \\
+        &\emph{as the sum of as many primes as one wishes, until all terms are just 1.}
+    \end{aligned}
+\end{equation}
+\begin{equation}
+    \emph{Every integer $> 2$ can be written as the sum of three primes.}
+\end{equation} \vskip 1mm
+\noindent Euler provided a stronger conjecture (in the sense that (1) and (2) can be derived from (3)) in his response to Goldbach, stating that\cite{letter}:
+\begin{equation}
+    \emph{Every positive even integer can be written as the sum of two primes}. 
+\end{equation} 
+As one of the greatest mathematicians in history, Euler believed in the validity of these conjectures, but he failed to provide a mathematical proof\cite{letter}.
+
+It is worth mentioning that the above versions follow an old convention that 1 is a prime number\footnote{Making 1 as a prime number would lead to a more cumbersome description of many mathematical theorems. For example, the Fundamental Theorem of Arithmetic states that any integer $> 1$ can be represented \textbf{uniquely} as a product of primes. If 1 is a prime, we would have to modify this statement to include \textquote{$\dots$ as a product of primes $> 1$.}, because every number would have multiple representations with any number of copies of 1 in the product.}, which has since been abandoned. Here are the modern versions of (2) and (3), which we will use for the rest of this article.
+\setcounter{equation}{1}
+\begin{equation}
+    \emph{Every integer $> 5$ can be written as a sum of three primes.}
+\end{equation}
+\begin{equation}
+    \emph{Every even integer $> 2$ can be written as a sum of two primes.\footnotemark{}}
+\end{equation}
+\footnotetext{In today's mathematical community, (3) is usually referred to as Goldbach's conjecture or Goldbach's strong conjecture. We will use these terms interchangeably with \textquote{conjecture (3)}.}
+
+Although (2) and (3) are not completely equivalent to their old versions, the modern representations capture the key ideas of the conjecture. However, it can be shown that (3) still implies (2), just like with their older representations. We leave the proof as an exercise for the reader.
+\section*{Development And Partial Results}
+\subsection*{The Struggle}
+While the conjecture is simple, proving it holds for all even numbers greater than 2 is extremely difficult. In fact, until the early 20th century, little progress had been made, and to this day almost no effective method has been developed since the proposal of the conjecture, despite many mathematicians having worked on the problem for over 160 years. Prior to the 20th century, the studies on the conjecture are mostly limited to proposing equivalent versions of it, or computationally verifying the conjecture\cite{wang}. This is mainly due to the lack of mathematical theories about prime numbers at the time\cite{wang}. Think about this: We were all made studied lots of math in school, from grades 1 to 12, but we weren't taught much about prime numbers apart from their definition. Indeed, while prime numbers possess many properties, some can't even be properly studied today without introducing some heavy mathematical machinery, let alone over 200 years ago!
+\subsection*{Breakthroughs}
+\subsubsection*{Hardy and Littlewood's Circle Method}
+The first significant breakthrough in proving Goldbach's conjecture was made in the 1920s by British mathematicians Godfrey Harold Hardy and John Edensor Littlewood. In their 1923 paper, they used the "circle method"\footnote{The method is called the circle method because it involves converting the problem into a matter of studying a line integral along the unit circle in the complex plane. Due to limited space in this article and considering the intended audience, we will leave a more detailed discussion for another, more technical article.}, and assuming the Generalized Riemann Hypothesis (GRH) \footnote{One of the important hypotheses in mathematics that concerns the roots of the Dirichlet L-function, defined as $L(s, \chi) = \sum_{n=1}^{\infty} \frac{\chi(n)}{n^s}.$ To maintain simplicity and relevance, we will not discuss the details of GRH in this article.} holds, proved that\cite{hardy}:
+\begin{equation}
+    \begin{aligned}
+        &\emph{Every sufficiently large \footnotemark{} odd number can be written as the sum of three primes, and}\\
+        &\emph{almost every \footnotemark[\value{footnote}] sufficiently large even number can be written as the sum of two primes.}
+    \end{aligned}
+\end{equation} \footnotetext{Roughly speaking, we say a statement holds for \textbf{sufficiently large} numbers if we can find a number $N$ so that the statement holds for all numbers beyond $N$. We say a statement holds for \textbf{almost every} number if the proportion of numbers for which the statement fails is negligible compared to the proportion for which it holds. For example, the statement \textquote{Every natural number is bigger than 100} holds both for sufficiently large numbers and for almost every number because 1. The statement is true for natural numbers $> 100$(i.e. any number $>100$ is sufficiently large in this case); 2. There are only 100 natural numbers (ones that are $\leq 100$ out of infinitely many such that the statement fails.}
+
+Unfortunately in mathematics, there are sometimes differences between \textquote{almost every}, \textquote{every sufficiently large} and just \textquote{every}. In addition, the proof by Hardy and Littlewood depends on the GRH, another equally difficult hypothesis if not more. So we are still very far from the answer.
+
+\subsubsection*{Brun's (Sieve) Method\footnote{Similarly, we will leave a detailed mathematical discussion of both Brun’s method and the sieve of Eratosthenes for a more technical article.}}
+Around the same time, another possible approach to solve the conjecture was given by Norwegian mathematician Viggo Brun. In 1919, he used an extended "sieve method" based on the ancient sieve of Eratosthenes\footnotemark[\value{footnote}] to prove that 
+\begin{equation}
+    \begin{aligned}
+        &\emph{Every sufficiently large even number can be expressed as}\\
+        &\emph{the sum of two products of at most 9 primes.}\cite{wang}.
+    \end{aligned}
+\end{equation} 
+\noindent In other words, 
+$$ \text{Any large enough even number } = (\text{product of $\leq 9$ primes}) + (\text{product of $\leq 9$ primes})$$
+The above statement can be denoted as $(9, 9)$ (capturing the number of primes in the product). In general, given $a, b \geq 1$, $(a, b)$ means that
+$$ \text{Any large enough even number } = (\text{product of $\leq a$ primes}) + (\text{product of $\leq b$ primes})$$
+Then $(1,1)$ simply means
+\begin{center}
+    Every sufficiently large even number $ = (\text{product of 1 prime})\footnotemark{} + (\text{product of 1 prime})$.
+\end{center}\footnotetext{Product of 1 prime is just that 1 prime.}
+However, this is just the conjecture (3) with the extra condition \textquote{sufficiently large}. Compared to writing any even number as the sum of 2 primes, removing the \textquote{sufficiently large} condition from $(1,1)$ is a much easier task\cite{pan}. Therefore, proving $(1,1)$ essentially also proves conjecture (3), so the goal of Burn's approach is to somehow use mathematical theory to reduce $(9,9)$ to $(1,1)$.\vskip 2mm
+
+Both the methods by Hardy and Littlewood and by Brun involved the term "sufficiently large". As mentioned previously, to prove the actual conjectures, we need to remove the condition \textquote{sufficiently large}. One idea to do so is the following: If the conjecture holds beyond some number $N$ (see footnote 4), then we apply numerical methods to find an $N$ as small as possible. Given a small enough $N$, we can verify the conjectures by performing direct calculations with computers up to $N$, and since we know that everything holds beyond $N$ thus the conjectures are therefore proven. However, it is not certain at the time what $N$ is, or how big it needs to be. Since there are infinitely many numbers, this $N$ could be so large that it would never be possible to compute it with existing technologies. Thus, it is crucial to make this $N$ smaller, and that is exactly what mathematicians did back then, which eventually led to the solution to Goldbach's weak conjecture.
+
+\subsubsection*{Goldbach's Weak Conjecture}
+Goldbach's weak conjecture (in the sense that it is a special case of conjecture (2)) is simply the first part of (4) without the condition \textquote{sufficiently large}:
+\begin{equation}
+    \emph{Every odd number can be written as the sum of three primes.}
+\end{equation}
+
+While conjecture (3) is very difficult to prove, Goldbach's weak conjecture seems less so.  During the 20th century, mathematicians have made remarkable progress on reducing \textquote{$N$} in (4). Most of the reductions on $N$ are done by optimizing the \textquote{circle method}\footnote{These optimizations/improvements involve complex and advanced theories in analytical number theory which cannot be properly explained in this short article. It is best to leave them for a yet another more technical article.}. Below we provide a brief overview of some of the important progress on values of $N$ by various mathematicians.
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Year} & \textbf{Result, proven by} \\ \hline
+$1937$ & (4) without assuming GRH, by I. Vinogradov\footnotemark{} \\ \hline
+$1956$ & $N \approx 10^{6846168}$ by K. G. Borozdkin \\ \hline
+$1989$ & $N \approx 10^{43000}$, by J. R. Chen and T. Z. Wang \\ \hline
+$2002$ & $N \approx 10^{1346}$, by M. C. Liu and T. Z. Wang\\ \hline
+\end{tabular}
+\caption{Development of reducing the lower bound for (4)\cite{wang}}
+\end{table}
+\footnotetext{Also known as Vinogradov's theorem.}
+
+In 2013, Peruvian mathematician Harald Helfgott proved (5) unconditionally\footnote{The proof is not fully published, but widely accepted.}\cite{wi}. He reduced $N$ to $10^{29}$ and proved all cases up to $10^{29}$ by computation\cite{wi}. This marks Goldbach's weak conjecture as solved.
+\newpage
+\subsubsection*{Returning to Goldbach's Strong Conjecture}
+Goldbach's weak conjecture is solved, but the strong version remains unproven. 
+\begin{wraptable}[10]{r}{7cm}
+    \centering
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Year} & \textbf{Result, proven by} \\ \hline
+    $1920$ & $(4,4)$, by Viggo Brun\\ \hline
+    $1924$ & $(7,7)$, by Hans Rademacher \\ \hline
+    $1932$ & $(6,6)$, by Theodor Estermann \\ \hline
+    $1948$ & $(1, b)$ by Alfréd Rényi\\ \hline
+    $1957$ & $(2,3)$, by Wang Yuan\\ \hline
+    $1962$ & $(1,3)$, by Pan Chengdong\\ \hline
+    $1973$ & $(1,2)$, by Chen Jingrun \\ \hline
+    \end{tabular}
+    \caption{Development of reducing $(a,b)$\cite{pan}}
+\end{wraptable}
+Despite this, there has been tremendous development towards proving it. Previously, we discussed that Brun's method involves reducing $(9,9)$ to $(1,1)$. Here we list some partial results on reducing $(9,9)$.
+Alfréd Rényi's result made ground-breaking progress because all the results that came before it couldn't guarantee that one of the numbers in the sum $(a, b)$ would be prime. It's worth mentioning that the current best result in reducing $(9,9)$, is Chen Jingrun's from the table above, also known as Chen's theorem \cite{pan}.
+
+\subsection*{Computational Verification}
+While this can't serve as a formal proof, we can verify conjecture (3) for some even numbers \\
+by direct computation.\hfill\mbox{}
+\begin{wraptable}[13]{r}{7cm}
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Even number} & \textbf{Prime sum} \\ \hline
+        4  & 2 + 2 \\ \hline
+        6  & 3 + 3 \\ \hline
+        8  & 3 + 5 \\ \hline
+        \vdots & \vdots \\ \hline
+        90 & 7 + 83 \\ \hline
+        92 & 3 + 89 \\ \hline
+        94 & 5 + 89 \\ \hline
+        96 & 7 + 89 \\ \hline
+        98 & 31 + 67 \\ \hline
+        100 & 17 + 83 \\ \hline
+    \end{tabular}
+    \caption{Goldbach's conjecture up to 100}
+\end{wraptable}
+
+We can easily perform the calculation up to 100 as shown in Table 3. Note that the prime sums need not be unique. For instance, we have:
+$$90 = 7 + 83 = 47 + 43 = 67 + 23$$
+
+With the help of computers, we can verify the conjecture (3) for large even numbers. For example, 12345678 is the sum of 31 and 12345647, which are both prime. Table 4 shows the history of the verification by direct computation up to December 2023.\vskip10mm
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Verification of the conjecture up to} & \textbf{Reference} \\ \hline
+$1 \times 10^4$ & Desboves 1885 \\ \hline
+$1 \times 10^5$ & Pipping 1938 \\ \hline
+$1 \times 10^8$ & Stein and Stein 1965 \\ \hline
+$2 \times 10^{10}$ & Granville et al. 1989 \\ \hline
+$4 \times 10^{11}$ & Sinisalo 1993 \\ \hline
+$1 \times 10^{14}$ & Deshouillers et al. 1998 \\ \hline
+$4 \times 10^{14}$ & Richstein 1999, 2001 \\ \hline
+$2 \times 10^{16}$ & Oliveira e Silva (Mar. 24, 2003) \\ \hline
+$6 \times 10^{16}$ & Oliveira e Silva (Oct. 3, 2003) \\ \hline
+$2 \times 10^{17}$ & Oliveira e Silva (Feb. 5, 2005) \\ \hline
+$3 \times 10^{17}$ & Oliveira e Silva (Dec. 30, 2005) \\ \hline
+$12 \times 10^{17}$ & Oliveira e Silva (Jul. 14, 2008) \\ \hline
+$4 \times 10^{18}$ & Oliveira e Silva (Apr. 2012) \\ \hline
+$9 \times 10^{18}$ & Daniel Sankei et al. (Dec. 2023) \\ \hline
+\end{tabular}
+\caption{Verification of the Strong Goldbach Conjecture \cite{num}}
+\end{table}
+
+\subsection*{Future Work on Goldbach's Conjecture}
+Despite the hard work of many brilliant mathematicians over 100 years, Goldbach's conjecture remains unsolved. The best results by far are $(1,2)$ (i.e. Chen's theorem) and Goldbach's weak conjecture. I will quote Wang Yuan \footnote{Wang Yuan's book \cite{wang}collected most if not all of the partial results (including some of his own) on Goldbach's conjecture from the last century, organized them, and provided insights on the motivations of as well as the connections between partial results. I think his book provides the most comprehensive review of the conjecture and is used in almost all other literature related to Goldbach's conjecture that I was able to find (either on the internet, or in university libraries).}to summarize the possible future directions that may help to solve Goldbach's conjecture: \textquote{Although the three primes theorem\footnote{In this case, it refers to Goldbach's weak conjecture, which hadn't yet been proven at that time.} and the $(1,2)$ are inferior to $(1,1)$ only by one step, it seems impossible to solve the conjecture (3) (or $(1,1)$) by some modifications of the present methods, even we cannot give a conditional proof by the assumption of GRH $\ldots$ Hence there are many who believe that Hardy's address that the conjecture (3) is \textquote{probably as difficult as any of the unsolved problems in mathematics} is still valid now as it was then. Hence it is convinced that a completely new idea is needed in the further study on Goldbach's conjecture.}\cite{wang}
+
+\section*{Final Remarks}
+In the past 200 years and more, numerous mathematicians have conducted extensive studies on Goldbach's conjecture from various perspectives, and the results, both in terms of methods and conclusions, are extraordinarily rich. To provide a comprehensive, precise, original, and insightful summary is no easy task. This has not been the purpose of this short article, nor would that even be possible. Instead, this article aims to offer a minimally mathematical introduction to the history and basic approaches to Goldbach's conjecture, making it accessible both to readers with and without mathematical backgrounds.
+
+There are many more topics to discuss. For example, how does the circle method convert Goldbach's problem into solving a line integral? How does the sieve of Eratosthenes work, and how is it related to Brun's method? How are some of the partial results proved? If you are interested, stay tuned for the next article on Goldbach's conjecture, where we will delve deeper into this topic from a more mathematical perspective.
+\begin{thebibliography}{9}
+\bibitem{wang}
+Wang, Yuan. The Goldbach Conjecture (V4). second ed., World Scientific, 2002. 
+
+\bibitem{letter}
+“The Euler Archive.” The Euler Archive, \url{http://eulerarchive.maa.org}.
+
+\bibitem{pan}
+\begin{CJK*}{UTF8}{gbsn}潘承洞，潘承彪，哥德巴赫猜想. 科学出版社, 2011.\end{CJK*} [Pan, Cheng Dong, and Pan Cheng Biao. Goldbach Conjecture. Science Press, 2011.]
+
+\bibitem{hardy}
+G. H. Hardy, J. E. Littlewood. "Some problems of ‘Partitio numerorum’; III: On the expression of a number as
+a sum of primes." Acta Mathematica, 44(none) 1-70 1923.
+\url{https://doi.org/10.1007/BF02403921}
+
+\bibitem{num}
+Sankei Daniel, et al. “A NUMERICAL VERIFICATION OF THE STRONG GOLDBACH CONJECTURE UP TO 9 × 10 18”. GPH - International Journal of Mathematics, vol. 06, no. 11, Global Publication House, Dec. 2023, pp. 28–37, doi:10.5281/zenodo.10391440.
+
+\bibitem{wi}
+“Goldbach’s Weak Conjecture.” Wikipedia, July 6, 2024.\url{https://en.wikipedia.org/wiki/Goldbach%27s_weak_conjecture}. 
+\end{thebibliography}
+\end{document}
