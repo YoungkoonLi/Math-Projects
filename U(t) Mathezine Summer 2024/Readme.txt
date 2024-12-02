@@ -1,0 +1,1 @@
+The article I wront the the summer 2024 issue of U(t) Mathezine. The magazine can be found here: https://www.utsc.utoronto.ca/ctl/sites/utsc.utoronto.ca.ctl/files/docs/resource-files/U_t__Mathazine_Summer_2024-Oct17.pdf
