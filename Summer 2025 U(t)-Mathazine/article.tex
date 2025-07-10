@@ -1,0 +1,275 @@
+\documentclass{article}
+\usepackage{hyperref, amsfonts, amsmath, amsthm, amssymb, CJKutf8, csquotes, wrapfig, array}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[a4paper, left= 1.2in, right = 1.2in, bottom=1.2in]{geometry}
+\hypersetup{hidelinks}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}{Definition}
+%\setlength\parskip{1em plus 1em}
+
+\title{Goldbach's Conjecture II: Chasing Goldbach on the Circle}
+\author{Yangkun Li}
+\date{Summer 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+\noindent Some problems in mathematics are deceptively simple yet remarkably enduring, and Goldbach’s conjecture is one of the most well-known. It states that \textbf{every even number no less than 6 can be written as the sum of two prime numbers.} It is also     proposed that \textbf{every odd number no less than 9 can be written as the sum of three prime numbers}, which is now known as Goldbach's weak conjecture.
+Despite centuries of effort and many numerical evidence, a complete proof remains out of reach\footnote{Peruvian mathematician Harald Helfgott released a paper in 2013, which is now widely accepted as a proof of Goldbach’s weak conjecture. \cite{H1}}. In my article from the previous issue of this magazine \cite{gold}, we explored the conjecture’s historical development and highlighted some of the key breakthroughs along the way. These seemingly irregular primes consistently sum to even numbers calls for deeper analytical insight. To that end, we now turn to one of the most influential analytic technique developed in the 20th century.
+
+\section{Goldbach's conjecture as an integral}
+In 1920, Hardy and Littlewood published a series of papers under the general title Some Problems of \textquote{Partitio Numerorum} in which they systematically created and developed an analytic method in additive number theory. Among them, the third paper published in 1923 were specifically devoted to discussing Goldbach’s conjecture \cite{hardy}. The core ideas behind this new method had already appeared in a 1918 paper by Hardy and Ramanujan, which were later referred to as the Hardy–Littlewood–Ramanujan \textit{circle method} \cite{pan}. Building on this foundation, Soviet mathematician Ivan Vinogradov made significant improvements to the method leading to major breakthroughs in expressing odd numbers as sums of primes.
+
+Generally speaking, the circle method turns the conjecture into studying an integral along the unit circle. Consider the equations
+\begin{equation} \label{even}
+        N = p_1 + p_2, \quad p_1, p_2 \text{ are odd primes.}
+\end{equation}
+\begin{equation} \label{odd}
+    N = p_1 + p_2 + p_3, \quad p_1, p_2, p_3 \text{ are odd primes.}
+\end{equation}
+Given $N$, we can solve these equations for $p_1$, $p_2$ and $p_3$. Then to prove Goldbach's conjecture, it is to prove that equation (\ref{even}) has solutions for all even $N \geq 6$. To prove Goldbach's weak conjecture, it is to prove that equation (\ref{odd}) has solutions for all odd $N \geq 9$. It turns out that the number of solutions can be written in an interesting form.
+
+\begin{theorem}
+    The number of solutions to equation (\ref{even}),
+\begin{equation}\label{evensol}
+    D(N) = \int_0^1S^2(\alpha, N)e(-N\alpha) \ \mathrm{d}\alpha,
+\end{equation}
+and the number of solutions to equation (\ref{odd})
+\begin{equation}\label{oddsol}
+    T(N) = \int_0^1S^3(\alpha, N)e(-N\alpha) \ \mathrm{d}\alpha
+\end{equation}
+where $e(x) = e^{2\pi ix}$, $S(\alpha, N) = \displaystyle \sum_{2 < p \leq N}e(\alpha p)$, $p$ is a prime.
+\end{theorem}
+\begin{proof}
+    By direct expansion we have
+\begin{align*}
+          \int_0^1S^2(\alpha, N)e(-N\alpha) \ \mathrm{d}\alpha &= \int_0^1 \left(\sum_{2 < p \leq N}e(\alpha p)\right)^2e(-N\alpha) \ \mathrm{d}\alpha\\
+         &= \int_0^1 \left(\sum_{2 < p_1, p_2 \leq N}e(\alpha (p_1 + p_2))\right)e(-N\alpha) \ \mathrm{d}\alpha\\
+         &= \int_0^1 \left(\sum_{2 < p_1, p_2 \leq N}e(\alpha (p_1 + p_2 - N))\right) \mathrm{d}\alpha \\
+         &= \sum_{2 < p_1, p_2 \leq N}\int_0^1 e(\alpha (p_1 + p_2 - N)) \ \mathrm{d}\alpha \tag{$\ast$}
+\end{align*}
+Recall that for any $n \in \mathbb{Z}$ we have the orthogonality relation
+\begin{equation}\label{orth}
+    \int_0^1e(n\alpha) \ \mathrm{d}\alpha = \begin{cases}
+        1, \quad \text{if $n = 0$}\\ 0, \quad \text{if $n \neq 0$}
+    \end{cases}
+\end{equation}
+Every integral in $(\ast)$ evaluates to $0$ if $N \neq p_1 + p_2$, and to $1$ if $N = p_1 + p_2$, so the integral in 
+(\ref{evensol}) gives the number of pairs of primes $\{p_1, p_2\}$ that solves (\ref{even}). Similarly, we can show that the integral in (\ref{oddsol}) gives the number of solutions to equation (\ref{odd}).
+\end{proof}
+
+We can restate the conjectures as follows.
+\begin{conjecture}[Goldbach's conjecture]
+     For all even $N \geq 6$, $D(N) > 0$.
+\end{conjecture}
+\begin{conjecture}[Goldbach's weak conjecture]
+     For all odd $N \geq 9$, $T(N) > 0$.
+\end{conjecture}
+Hence, the problem of both conjectures is reduced to the analysis of the integrals in (\ref{evensol}) and (\ref{oddsol}). Of course, that would require us to study the trigonometric sum $S(\alpha, N)$.
+\section{Major and minor arcs}
+\subsection{Construction}
+Hardy and Littlewood believed that on certain small intervals (centered at irreducible fractions\footnotemark[2]{}), $S(\alpha, N)$ attains larger values, meaning that most of the contributions to $D(N)$ and $T(N)$ come from these intervals. Outside of them, $S(\alpha, N)$ are comparatively small and thus its contribution to the integrals is insignificant. Based on this, they proposed dividing the interval of integration into what we call the major and minor arcs\footnote{We will define these terms more precisely later.}. 
+
+Let us introduce some technical details to make the idea precise. Let $Q, r > 0$ with $1 \leq Q \leq r \leq N$. Consider the Farey sequence\footnote{A Farey sequence of order $n\in \mathbb{Z}^+$ is the set of irreducible fractions $\frac{a}{b}$ arranged in increasing order, with $\ 0 \leq a \leq b$ and $1 \leq b \leq n$. We use Farey sequence here is because we want to construct intervals centered at irreducible fractions.} of order $Q$,
+\begin{equation*}\label{farey}
+    F_Q = \left\{\frac{a}{b}\ \Big | \ 0 \leq a \leq b,\ 1 \leq b \leq Q,\ \gcd(a,b) = 1\right\},
+\end{equation*}
+and the corresponding set of intervals centered at $\displaystyle\frac{a}{b}$,
+\begin{equation*}
+    I(a,b) = \left[\frac{a}{b} - \frac{1}{r}, \frac{a}{b} + \frac{1}{r}\right], \quad a < b.\footnotemark{}
+\end{equation*}\footnotetext{Strictly speaking, the definition of the Farey sequence allows $a = b$, but we omit this case for technical convenience, as it has no effect on the analysis of the integral.}
+
+These intervals will be used to construct major and minor arcs mentioned earlier. We put a condition on the choice of $Q$ and $r$ to give $I(a,b)$ some nice properties.
+\begin{theorem}\label{2q}
+    If $2Q^2 < r$, then every $I(a,b)$ lies strictly inside $\displaystyle \left[-\frac{1}{r}, 1 -\frac{1}{r}\right]$ and they are pairwise disjoint.
+\end{theorem}
+\begin{proof}
+    If $2Q^2 < r$ then $\displaystyle \frac{1}{Q^2} > \frac{2}{r}$. For any two distinct terms $\displaystyle \frac{a_1}{b_1}, \frac{a_2}{b_2} \in F_Q$, we have
+    \begin{equation*}
+        \left |\frac{a_1}{b_1} -\frac{a_2}{b_2} \right| \geq \frac{1}{b_1b_2} \geq \frac{1}{Q^2} > \frac{2}{r}.\footnotemark{}
+    \end{equation*}
+    By definition, the length of each $I(a,b)$ is $\frac{2}{r}$, the above inequality implies that they do not intersect with each other. Now by assumption $Q \geq 1$, so $2Q \leq 2Q^2 < r$. We can simply check that the endpoints of the \textquote{rightmost} and \textquote{leftmost} interval lies inside $\left[-\frac{1}{r}, 1 -\frac{1}{r}\right]$:
+    \begin{equation*}
+        -\frac{1}{r} < \frac{1}{Q} - \frac{1}{r} \leq \frac{a}{b} - \frac{1}{r}, \quad \text{and} \quad \frac{a}{b} + \frac{1}{r} \leq \frac{Q-1}{Q} - \frac{1}{r} < 1 - \frac{1}{r}.
+    \end{equation*}
+    So, every $I(a,b)$ lies strictly inside $\displaystyle \left[-\frac{1}{r}, 1 -\frac{1}{r}\right]$. 
+\end{proof}\footnotetext{A Farey sequence has the property that the distance between any two distinct terms $\left|\frac{a_1}{b_1} - \frac{a_2}{b_2}\right| \geq \frac{1}{b_1b_2}$.} 
+\begin{definition}[Major and minor arcs\footnote{Major arcs are sometimes called basic intervals, and minor arcs, supplementary intervals.}]
+The \textbf{major arcs is} the set 
+\begin{equation*}
+    E_1 = \bigcup_{1 \leq b \leq Q}\bigcup_{\substack{0 \leq a < b\\ \gcd(a,b) = 1}} I(a,b),
+\end{equation*}
+each $I(a,b)$ is called a \textbf{major arc}. \textbf{Minor arcs} is the set
+\begin{equation*}
+    E_2 = \left[-\frac{1}{r}, 1 -\frac{1}{r}\right] \setminus E_1.
+\end{equation*}
+It is easy to see that $E_2$ is also a (disjoint) union of intervals. Each of these intervals is a \textbf{minor arc}.
+\end{definition}
+We have divided the interval $\left[-\frac{1}{r}, 1 -\frac{1}{r}\right]$ into two parts, $E_1$ and $E_2$, as proposed in the circle method. Note that $\left[-\frac{1}{r}, 1 -\frac{1}{r}\right]$ is not the integration range $[0,1]$ of $D(N)$ and $T(N)$. However, this is not an issue because both $S(\alpha, N)$ and the integrands of $D(N)$ and $T(N)$ are periodic functions with period 1, so the integrals over both intervals yield the same value. We can use the one that is more convenient depending on the context.
+\begin{definition}
+    The denominator of a fraction is \textbf{small} if it is no more than $Q$, and \textbf{large} otherwise. Two points are said to be \textbf{close} if they are no more than $r^{-1}$ apart.
+\end{definition}
+
+We previously noted that $S(\alpha, N)$ tends to be larger on certain intervals. In fact, Hardy and Littlewood predicted (and later proved by Vinogradov) that $S(\alpha, N)$ is larger when $\alpha$ is close to an irreducible fraction with a small denominator, and smaller when $\alpha$ is close to one with a large denominator. The following theorem offers an intuitive justification for the way we defined the major and minor arcs.
+\begin{theorem}\label{e1}
+    Every point in $E_1$ is close to an irreducible fraction with small denominator; Every point in $E_2$ is close to an irreducible fraction with large denominator.
+    \begin{proof}
+        Let $e_1 \in E_1$. By definition $e_1 \in \left[\frac{a}{b} - \frac{1}{r}, \frac{a}{b} + \frac{1}{r}\right]$, where $\displaystyle\frac{a}{b} \in F_Q$. Clearly, $e_1$ is close to $\frac{a}{b}$, an irreducible fraction with small denominator ($b \leq Q)$. Now let $e_2 \in E_2$. By Dirichlet's approximation theorem\footnote{A full proof can be found on page 90 of \cite{pan}. Some versions of the theorem does give a coprime pair, but diving two numbers by their GCD always makes them coprime.},  there exists $c, d \in \mathbb{Z}$ satisfying $\gcd(c,d) = 1, \ 1 \leq d \leq r$ such that 
+        \begin{equation*}
+            \left|de_2 - c\right| < \frac{1}{r}, \quad \text{or equivalently, } \left|e_2 - \frac{c}{d} \right| < \frac{1}{dr} \leq \frac{1}{r}.
+        \end{equation*}
+        Thus, every point in $E_2$ is close to an irreducible fraction $\displaystyle\frac{c}{d}$. Here, if $d \leq Q$ then $\displaystyle\frac{c}{d} \in F_Q$ and the above inequality would imply $e_2 \in I(c,d) \subseteq E_1$. But since $E_1 \cap E_2 = \emptyset$ by definition, this leads to a contradiction. Therefore, $d > Q$ and $\displaystyle\frac{c}{d}$ must have a large denominator.
+    \end{proof}
+\end{theorem}
+Theorem \ref{e1} shows that the major arcs $E_1$ are precisely the intervals where $\alpha$ is close to irreducible fractions with small denominators, and the minor arcs $E_2$ correspond to those close to irreducible fractions with large denominators, exactly capturing the structure Hardy and Littlewood had in mind. We can now analyze $D(N)$ and $T(N)$ on $E_1$ and $E_2$ separately.
+\begin{equation*}
+    D(N) = \int_{-\frac{1}{r}}^{1 - \frac{1}{r}}S^2(\alpha, N)e(-N\alpha) \ \mathrm{d}\alpha = D_1(N) +D_2(N),
+\end{equation*}
+where
+\begin{equation*}
+    D_1(N) = \int_{E_1}S^2(\alpha, N)e(-N\alpha) \ \mathrm{d}\alpha, \quad D_2(N) = \int_{E_2}S^2(\alpha, N)e(-N\alpha) \ \mathrm{d}\alpha.
+\end{equation*}
+Similarly,
+\begin{equation*}
+    T(N) = \int_{-\frac{1}{r}}^{1 - \frac{1}{r}}S^3(\alpha, N)e(-N\alpha) \ \mathrm{d}\alpha = T_1(N) +T_2(N),
+\end{equation*}
+where $T_1(N)$, $T_2(N)$ are defined analogously.
+\subsection{Some remarks}
+The above concludes the setup for the circle method. Our goal is to compute $T_1(N)$ and $D_1(N)$, and show that they are the principal terms of $T(N)$ and $D(N)$, with $T_2(N)$ and $D_2(N)$ being of lower order, respectively. 
+
+As discussed in \cite{gold}, proving both conjectures directly is hard, but their weaker forms are approachable: we do not need to prove the conjectures hold for all $N$, but only that they hold beyond some large $N$ of our choice, which proves the conjectures for all but finitely many cases. It suffices to then verify the conjecture for the numbers below that threshold. 
+
+Why is this important? Recall that the construction of major and minor arcs depends on the choice of $Q$ and $r$. In particular, Theorem \ref{2q} imposes the condition $2Q^2 < r$. If we work with the weaker versions of the conjectures, then we are free to choose $N$ to be as large as we want. Under our assumption $1 \leq Q\leq r \leq N$, $Q$ and $r$ can also be as large as we want, so the condition in Theorem \ref{2q} can be easily satisfied. Theorem 4 becomes relevant later, as we will see.
+
+\section{Analysis of $T(N)$ and $D(N)$}
+Estimating $T(N)$ and $D(N)$ is no easy task. It involves long chains of complex lemmas and theorems. Including all of them would make the article far too long, while including only a subset would complicate things without added insight. For this reason, we omit the detailed proofs and instead focus on explaining the ideas and structure of the arguments. We will however give references to theorems and their proofs.
+
+\subsection{Singular Series}
+\begin{definition}[Singular Series\footnote{Singular series have series forms. The series form has useful properties but a more complicated definition. The product form will suffice for our purposes. See Section 6.2 and 11.1 of \cite{pan} for details.}] The singular series for Goldbach's conjecture is 
+\begin{equation*}
+    \mathfrak{S}_2(N) = \prod_{p \nmid N} \left(1 - \frac{1}{(p - 1)^2} \right) 
+\prod_{p \mid N} \left(1 + \frac{1}{p - 1} \right)
+\end{equation*}
+The sigular series for Goldbach's weak conjecture is
+\begin{equation*}
+    \mathfrak{S}_3(N) = \prod_{p \mid N} \left( 1 - \frac{1}{(p - 1)^2} \right) \prod_{p \nmid N} \left( 1 + \frac{1}{(p - 1)^3} \right).
+\end{equation*}
+\end{definition}
+These terms have a nice property.
+\begin{theorem} \label{single} For sufficiently large positive integer $N$,
+\begin{equation*}
+    \mathfrak{S}_2(N) \begin{cases}
+        = 0, \quad \text{if $N$ is odd,}\\
+        > \frac{1}{2}, \quad \text{if $N$ is even,}\\
+    \end{cases}, \text{and} \quad \mathfrak{S}_3(N) \begin{cases}
+        = 0, \quad \text{if $N$ is even,}\\
+        > \frac{1}{2}, \quad \text{if $N$ is odd,}\\
+    \end{cases}
+\end{equation*}
+\end{theorem}
+\begin{proof}
+    Clearly, when $N$ is odd/even for $\mathfrak{S}_2(N)$, $\mathfrak{S}_3(N) = 0$ respectively. Next we notice that when $N$ is even,
+    \begin{equation*}
+    \mathfrak{S}_2(N) > \prod_{p \nmid N} \left(1 - \frac{1}{(p - 1)^2} \right) > \prod_{n \geq 3} \left(1 - \frac{1}{(n - 1)^2} \right) = \frac{1}{2}.
+\end{equation*}
+and that when $N$ is odd,
+\begin{equation*}
+    \mathfrak{S}_3(N) > \prod_{p \mid N} \left(1 - \frac{1}{(p - 1)^2} \right) > \prod_{n \geq 3} \left(1 - \frac{1}{(n - 1)^2} \right) = \frac{1}{2}.
+\end{equation*}
+\end{proof}
+As we will see later, $\mathfrak{S}_2(N)$ and $\mathfrak{S}_3(N)$ act as ``multipliers'' in the estimation of $D(N)$ and $T(N)$, filtering out values of $N$ that fall outside our scope. For Goldbach’s conjecture, we are only interested in even $N$. If $D(N)$ is given an odd $N$, then $\mathfrak{S}_2(N) = 0$, making $D_1(N)$ nearly zero. Likewise, in Goldbach’s weak conjecture, we consider only odd numbers. $\mathfrak{S}_3(N) = 0$ for even $N$, rendering $T_1(N)$ negligible.
+
+\subsection{Bounding $T_1(N)$ and $T_2(N)$}
+We begin by stating a weaker form of Goldbach's weak conjecture.
+\begin{theorem}[Vinogradov's theorem\footnote{See Chapter I, section 2 of \cite{wang} or Section 6.2 of \cite{pan} for full proofs.}]
+    For sufficiently large even $N$, $T(N) > 0$.    
+\end{theorem}
+
+\noindent \textit{Proof idea.} To apply the circle method, we choose $Q = \log^{\lambda}(N)$ and $r = N\log^{-\gamma}(N)$ where $\lambda$ and $\gamma$ are appropriate positive real numbers depending on the approximation methods we use. Note that for sufficiently large $N$, the condition $2Q^2 < r$ is satisfied regardless of the choice of $\lambda$ and $\gamma$, so we can always find appropriate major and minor arcs.
+
+There are several ways to bound $T_1(N)$. Two proofs, in \cite{wang} and \cite{pan}, both employ Siegel–Walfisz theorem. Section 6.3 of \cite{pan} offers another proof that uses Page's theorem. The process of bounding $T_1(N)$ is highly intricate, so we shall omit the details.
+Vinogradov gave that 
+\begin{equation}\label{T1}
+    T_1(N) = \frac{1}{2} \mathfrak{S}_3(N) \frac{N^2}{\log^3 (N)} + O\left( \frac{N^2}{\log^4 (N)} \right).
+\end{equation}
+By assumption and Theorem \ref{single}, $\mathfrak{S}_3(N) > \frac{1}{2}$.
+The rest of the terms in (\ref{T1}) are clearly positive for large $N$. Thus, $T_1(N) > 0$.
+
+To bound $T_2(N)$, we need to estimate $S(\alpha, N)$ for $\alpha \in E_2$. Required methods are systematically presented in Chapter 5 of \cite{pan}. Here we will directly state the result:
+\begin{equation*}
+    S(\alpha, N) \ll \frac{N}{\log^3(N)}
+\end{equation*}
+For sufficiently large $N$, we can bound $T_2(N)$ as follows: 
+\begin{align*}
+T_2(N) &= \int_{E_2} S^3(\alpha, N)e(-N\alpha)\ \mathrm{d}\alpha\\
+       & < \int_{0}^1 |S^3(\alpha, N)|\ \mathrm{d}\alpha\\
+       &\ll \frac{N}{\log^3 (N)} \int_0^1 \left| S^2(\alpha, N) \right| \, d\alpha \\
+        &= \frac{N}{\log^3 (N)} \sum_{2 < p_1,\, p_2 \leq N} \int_0^1  e\left((p_1 - p_2)\alpha\right) \, d\alpha \\
+        &= \frac{N}{\log^3 (N)} \sum_{2 < p \leq N} 1 \tag{Equation (\ref{orth})}\\
+       &\sim \frac{N^2}{\log^4 (N)}. \tag{Prime number theorem}
+\end{align*}
+Notice that 
+\begin{equation*}
+    \frac{N^2}{\log^4(N)} \ll \frac{1}{2} \mathfrak{S}_3(N) \frac{N^2}{\log^3 (N)}.
+\end{equation*} 
+Hence $T_2(N)$ is insignificant compared to $T_1(N)$, $T(N) \sim T_1(N) > 0$ as $N \longrightarrow \infty. \hfill \square$
+
+This concludes our brief overview of the circle method as applied to Goldbach’s weak conjecture. We now turn to Goldbach's Conjecture.
+\subsection{Bounding $D_1(N)$ and $D_2(N)$}
+It is natural to apply what we did to bound $T(N)$ to $D(N)$. Let $N$ be a sufficiently large (even) integer, a similar (but complex, see Section 11.1 of \cite{pan}) method of bounding  can be used to achieve
+\begin{equation}
+D_1(N) = \int_{E_1} S^2(\alpha, N)e(-N\alpha) \ \mathrm{d}\alpha 
+\sim \mathfrak{S}_2(N) \frac{N}{\log^2 (N)} + O\left( \frac{n (\log \log (N))^2}{\log^3 (N)} \right)
+\end{equation}
+However, as we saw when bounding $T_2(N)$, 
+\begin{align*}
+    D_2(N) &= \int_{E_2} S^2(\alpha, N)e(-N\alpha)\ \mathrm{d}\alpha\\
+            &< \int_{0}^1 |S^2(\alpha, N)|\ \mathrm{d}\alpha \sim \frac{N}{\log N},
+\end{align*}
+which means $D_2(N)$ is of larger order than $D_1(N)$. Although there are several other known ways\footnote{One approach is to apply the Cauchy--Schwarz inequality, which we leave as an exercise. Chen Jingrun proposed applying the circle method directly to the minor arcs $E_2$ (see Appendix I of \cite{pan}), dividing $E_2$ into two parts: $E_2'$ and $E_3$. Over $E_2'$, the contribution to $D_2(N)$ is negligible, so the remaining challenge lies in analyzing the integral over $E_3$, a much smaller subset of $E_2$, though a bound is still out of reach.} to achieve better bounds on $T_2$, those bounds are not tight enough for us to conclude $|D_2(N)| \ll |D_1(N)|$, thus we do not know if $D(N) > 0$.
+
+While our estimates already suggest that $D_2(N)$ may outweigh $D_1(N)$, there is another problem: the major arcs take up only a small portion of the interval $[0,1]$ as $N$ grows.
+\begin{theorem}\label{density}
+    $\displaystyle \lim_{N\rightarrow \infty} \mu(E_1) = 0$, where $\mu$ is the Lebesgue measure on $\mathbb{R}$.
+\end{theorem}
+\begin{proof}
+Choose $N$ such that $2Q^2 \ll N$ and choose $r = N$. Theorem \ref{2q} says the major arcs are disjoint. We have
+\begin{align*}
+        \mu(E_1) &= \mu\left(\bigcup_{1 \leq b \leq Q}\bigcup_{\substack{0 \leq a < b\\ \gcd(a,b) = 1}} I(a,b)\right)\\
+        &= \sum_{1 \leq b \leq Q}\sum_{\substack{0 \leq a < b\\ \gcd(a,b) = 1}} \mu(I(a,b))\\
+        &= \sum_{1 \leq b \leq Q}\sum_{\substack{0 \leq a < b\\ \gcd(a,b) = 1}} \frac{2}{N}\\
+        &\leq \sum_{1 \leq b \leq Q} \frac{2b}{N} = \frac{Q(Q + 1)}{N}\\
+    \end{align*}
+    Clearly, $\displaystyle0 \leq \lim_{N\rightarrow \infty} \mu(E_1) \leq \lim_{N\rightarrow \infty} \frac{Q(Q + 1)}{N} = 0$.
+\end{proof}
+This means that for sufficiently large $N$, the major arcs become very small, and most of the interval $[0,1]$ is made up of minor arcs. Even worse, not only is $D_2(N)$ not negligible, but the region $E_2$ occupies nearly all of $[0,1]$, leaving little room for the contribution from $D_1(N)$ to dominate. This further weakens the case for bounding $D_1(N)$ and $D_2(N)$ which is already unconvincing. We can see that there are fundamental obstacles in solving Goldbach’s conjecture with the circle method.
+
+\section{Final remarks}
+The circle method gets us part of the way. For Goldbach's weak conjecture, the major arcs dominate, and we can make the argument precise. But for the strong conjecture, things break down. The minor arcs are too large to ignore, and we don't have good enough control over them. The method guides us along clear path, but we are still far from the answer.his shows just how deep and difficult Goldbach’s conjecture really is.
+
+Many interesting details have been left out of this article. From bounding exponential sums to refining the series form of $\mathfrak{S}(N)$, each could be a technical article of its own. There are also variations of the circle method not explored here, and entirely different approaches to Goldbach's conjecture using sieve methods. Those will be the focus of future articles. For now, we have followed the arcs as far as they go.
+
+\begin{thebibliography}{9}
+\bibitem{gold}
+Y. Li, \textit{Introduction to Goldbach’s Conjecture and its History}, $U(t)$-Mathazine. \textbf{9}(2024).
+
+\bibitem{wang}
+W. Yuan, \textit{The Goldbach Conjecture}, World Scientific, 2002. 
+
+\bibitem{pan}
+Pan, Cheng Dong, and Pan Cheng Biao, \textit{Goldbach Conjecture}, Science Press, 2011. [\begin{CJK*}{UTF8}{gbsn}潘承洞，潘承彪，哥德巴赫猜想. 科学出版社, 2011.\end{CJK*}] 
+
+\bibitem{hardy}
+G. H. Hardy, J. E. Littlewood, \textit{Some problems of ‘Partitio numerorum; III: On the expression of a number as
+a sum of primes},  Acta Mathematica, 44(none) 1-70 1923,
+DOI 10.1007/BF02403921.
+
+\bibitem{H1}
+H. A. Helfgott, \textit{The ternary Goldbach conjecture is true}, \href{https://arxiv.org/abs/1312.7748}{arXiv:1205.5252}, 2013.
+
+\end{thebibliography}
+\end{document}
