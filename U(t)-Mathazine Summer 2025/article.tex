@@ -199,7 +199,7 @@ Vinogradov gave that
 By assumption and Theorem \ref{single}, $\mathfrak{S}_3(N) > \frac{1}{2}$.
 The rest of the terms in (\ref{T1}) are clearly positive for large $N$. Thus, $T_1(N) > 0$.
 
-To bound $T_2(N)$, we need to estimate $S(\alpha, N)$ for $\alpha \in E_2$. Required methods are systematically presented in Chapter 5 of \cite{pan}. Here we will directly state the result:
+To bound $T_2(N)$, we need to estimate $S(\alpha, N)$ for $\alpha \in E_2$. The required methods are systematically presented in Chapter 5 of \cite{pan}. Here we will directly state the result:
 \begin{equation*}
     S(\alpha, N) \ll \frac{N}{\log^3(N)}
 \end{equation*}
@@ -218,9 +218,9 @@ Notice that
 \end{equation*} 
 Hence $T_2(N)$ is insignificant compared to $T_1(N)$, $T(N) \sim T_1(N) > 0$ as $N \longrightarrow \infty. \hfill \square$
 
-This concludes our brief overview of the circle method as applied to Goldbach’s weak conjecture. We now turn to Goldbach's Conjecture.
+This concludes our brief overview of the circle method as applied to Goldbach’s weak conjecture. We now turn to Goldbach's conjecture.
 \subsection{Bounding $D_1(N)$ and $D_2(N)$}
-It is natural to apply what we did to bound $T(N)$ to $D(N)$. Let $N$ be a sufficiently large (even) integer, a similar (but complex, see Section 11.1 of \cite{pan}) method of bounding  can be used to achieve
+It is natural to apply what we did to bound $T(N)$ to $D(N)$. Let $N$ be a sufficiently large (even) integer, a similar (but complex, see Section 11.1 of \cite{pan}) method of bounding can be used to achieve the following:
 \begin{equation}
 D_1(N) = \int_{E_1} S^2(\alpha, N)e(-N\alpha) \ \mathrm{d}\alpha 
 \sim \mathfrak{S}_2(N) \frac{N}{\log^2 (N)} + O\left( \frac{n (\log \log (N))^2}{\log^3 (N)} \right)
@@ -232,7 +232,7 @@ However, as we saw when bounding $T_2(N)$,
 \end{align*}
 which means $D_2(N)$ is of larger order than $D_1(N)$. Although there are several other known ways\footnote{One approach is to apply the Cauchy--Schwarz inequality, which we leave as an exercise. Chen Jingrun proposed applying the circle method directly to the minor arcs $E_2$ (see Appendix I of \cite{pan}), dividing $E_2$ into two parts: $E_2'$ and $E_3$. Over $E_2'$, the contribution to $D_2(N)$ is negligible, so the remaining challenge lies in analyzing the integral over $E_3$, a much smaller subset of $E_2$, though a bound is still out of reach.} to achieve better bounds on $T_2$, those bounds are not tight enough for us to conclude $|D_2(N)| \ll |D_1(N)|$, thus we do not know if $D(N) > 0$.
 
-While our estimates already suggest that $D_2(N)$ may outweigh $D_1(N)$, there is another problem: the major arcs take up only a small portion of the interval $[0,1]$ as $N$ grows.
+Even though our estimates already suggest that $D_2(N)$ may outweigh $D_1(N)$, there is yet another problem: the major arcs take up only a small portion of the interval $[0,1]$ as $N$ grows.
 \begin{theorem}\label{density}
     $\displaystyle \lim_{N\rightarrow \infty} \mu(E_1) = 0$, where $\mu$ is the Lebesgue measure on $\mathbb{R}$.
 \end{theorem}
