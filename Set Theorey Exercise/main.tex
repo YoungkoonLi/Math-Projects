@@ -1,0 +1,260 @@
+\documentclass{article}
+\usepackage{graphicx, csquotes, amsfonts, amsmath, amssymb, amsthm, slashed, mathtools} 
+\usepackage[a4paper, margin=1.2in]{geometry}
+\title{MATD94 Excercises}
+\author{Yangkun Li}
+\date{Summer 2024}
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[section]
+\newcommand{\so}{\text{\textbf{Solution: }}}
+\newcommand{\es}{$\hfill \square$}
+\begin{document}
+
+\maketitle
+
+\section{ZFC Axioms}
+    \begin{exercise}
+        \so For Group X.
+    \end{exercise}
+
+    \begin{exercise}
+        Determine if the following statement is stronger or equivalent to Axiom of Choice:\\
+        For any set $X$, there exists a linear $R$ on $X$ such that 
+        $$\forall A \subseteq X \quad \exists z \in A \quad \forall y \neq z \in A \quad y\slashed{R}z$$
+        \so This statement is equivalent to Axiom of choice. 
+        
+        First, we show the given statement implies Axiom of Choice. We simply show the given linear order $R$ well-orders $X$, in particular, $z$ is a $R$-minimal element. Since linear orders satisfy the trichotomy law, we know that if $y = z$ then $y \slashed{R} z$.  Then the given statement is equivalent to the following:
+        $$\forall A \subseteq X \quad \exists z \in A \quad \neg\exists y \in A \quad yRz$$
+        Then every subset of $X$ has some $z$ as the $R$-minimal element by definition, and $R$ is a well-order on $X$.
+
+        Now, the Axiom of choice also implies the given statement. We can find a well-order $R$ on $X$ (thus on all subsets $A$ of $X$ WLOG) by Axiom of Choice. By definition, there is some $z\in A$ that is the $R$-minimal element, namely, $\neg\exists (y \in A \land yRz)$. But this is equivalent to saying $\forall y \neq z \in A \quad y\slashed{R}z$ as shown above. So this well-order $R$ is also a linear order (by definition) that satisfies the given statement. \es
+    \end{exercise}
+    \begin{exercise}
+        Given sets $X$ and $Y$, clearly use ZFC axioms to formulate the intersection of $X$ and $Y$.
+        
+        \noindent\so We use the Comprehension Schema for this question, and choose $\varphi = x \in Y$. We have 
+        $$\forall X \exists Z\forall x(x \in Z \leftrightarrow x \in X \land \varphi) = \forall X \exists Z\forall x(x \in Z \leftrightarrow x \in X \land x \in Y)$$
+        Then $Z = \{x \in X \ |\ x \in Y\}$, which is just the intersection $X \cap Y$. \es
+    \end{exercise}
+\section{Ordinal Numbers}
+    \begin{exercise}
+        Finish the proof of Lemma 21A. 
+        
+        \noindent\so \textbf{Lemma 22A.} No well-ordered set (woset) is order isomorphic to an initial segment of itself.
+        
+        \noindent \textbf{Proof.} BWOC assume \( f : W \cong \mathrm{pred}(W, a, <) \) is an order isomorphism for some woset \( (W, <) \) and \( a \in W \). Thus being an element of the initial segment, we have that \( f(a) < a \). Therefore \( A = \{ x \in W : f(x) \neq x \} \) is a nonempty subset of \( W \), so let \( t \) be its minimum element.
+
+        By the trichotomy of linear orders, \( f(t) < t \) or \( t < f(t) \). In the first case, we find that \( f(f(t)) < f(t) \) as \( f \) is an order isomorphism. Therefore \( f(t) \in A \), which contradicts that \( t \) is minimal.
+
+        Now suppose  \( t < f(t) \). Since $f$ is an order isomorphism (bijection), there exists a unique $w \in W$ such that $f(w) = t \in A$. Note that $w \in A$ since if not, then $w = f(w) = t \in A$ is a contradiction. By supposition we have $f(w) < f(t)$, then $w < t$, but $w \in A$, this contradicts the minimality of $t$. \es
+    \end{exercise}
+    \begin{exercise}
+        Finish the proof of Theorem 22B.
+        
+        \noindent \textbf{Theorem 22B:} For wosets \((W_1, <_1)\) and \((W_2, <_2)\), exactly one satisfies:
+        \begin{enumerate}
+            \item \(W_1 \cong W_2\);
+            \item \(W_1 \cong \text{pred}(W_2, a_2, <_2)\) for some \(a_2 \in W_2\);
+            \item \(\text{pred}(W_1, a_1, <_1) \cong W_2\) for some \(a_1 \in W_1\).
+        \end{enumerate}
+        In any case, the order isomorphism is unique.
+
+        \noindent \so Since (2) and (3) are the same up to switching the roles of $W_1$ and $W_2$ which are both arbitrary, so it suffices to show either (1) or (2) holds for any two wosets $W_1$ and $W_2$. Suppose (1) doesn't hold. We will prove that (2) holds. \vspace{1em}\\
+        \noindent Let relation \( f \subseteq W_1 \times W_2 \) be defined as
+        $$f = \{(a, b) : \text{pred}(W_1, a, <_1) \cong \text{pred}(W_2, b, <_2)\}.$$
+        We will show $f$ is an order isomorphism from $W_1$ to an initial segment of $W_2$, say $B \in W_2$ respectively. \\
+        Note: We will drop the subscript of the well-ordering where it is clear from the context which ordering is used. \\
+        First, we show that $f$ is a function. Let $a \in W_1$, $b, b' \in W_2$.
+        
+        \noindent Suppose $(a, b) = (a, b') \in f$. That means 
+        $$\text{pred}(W_2, b, <_2) \cong \text{pred}(W_1, a, <_1) \cong \text{pred}(W_2, b', <_2),$$ 
+        or simply 
+        $$\text{pred}(W_2, b, <_2) \cong \text{pred}(W_2, b', <_2)$$
+        WLOG suppose $b < b'$. Notice that 
+        $$\text{pred}(W_2, b', <_2) > \text{pred}(W_2, \text{pred}(W_2, b', <_2), <_2) \geq \text{pred}(W_2, b, <_2),$$ 
+        and by Lemma 22A we know that no woset is isomorphic to an initial segment of itself, that is 
+        $$\text{pred}(W_2, b', <_2) \not\cong \text{pred}(\text{pred}(W_2, b', <_2)).$$
+        But this means it can't be isomorphic to a set smaller than it's initial segment, namely:
+        $$\text{pred}(W_2, b', <_2) \not\cong \text{pred}(W_2, b, <_2),$$
+        Which is a contradiction to our supposition.\\
+        A similar argument can be made if $b' < b$, simply switch roles of $b$ and $b'$ in the above argument. \\
+        Therefore we must have $b = b'$, proving that $f$ is a function. Note that in our argument, we have shown that 
+        \begin{center}
+            \textbf{If the initial segment of 2 sets $X, Y$ of a woset are isomorphic, then $X = Y \quad (\ast)$}
+        \end{center}
+        Now we will show $f$ is a injection. Let $a_1, a_2 \in A$ and assume $f(a_1) = f(a_2)$. By definition of $f$ we have 
+        $$\text{pred}(W_1, a_1, <_1) \cong \text{pred}(W_2, f(a_1, <_2) \cong \text{pred}(W_2, f(a_2), <_2) \cong \text{pred}(W_1, a_2, <_1)$$
+        By $(\ast)$ we know we have $a_1 = a_2$. Then $f$ is injective.\\
+        $f$ is always surjective under some restriction of the codomain, in case $\operatorname{ran}(f) \subset B$ (proper subset). WLOG, we assume that $B$ is already restricted (if needed) and $f: A \rightarrow B$ is a bijection. \vspace{1em}\\
+        Next, we will show $f$ is an order isomorphism. Take $a_1 < a_2 \in W_1$, and suppose $f(a_1) \geq f(a_2)$. If $f(a_1) = f(a_2)$, apply $f^{-1}$ on both side gives $a_1 = a_2$, a contraction. So let $f(a_1) > f(a_2)$ then $\text{pred}(W_2, f(a_2), <_2)  < \text{pred}(W_2, f(a_1), <_2)$.\\
+        Since $\text{pred}(W_1, a_1, <_1) \cong \text{pred}(W_2, f(a_1), <_2)$ and $\text{pred}(W_1, a_2, <_1) \cong \text{pred}(W_2, f(a_2), <_2)$, we have two order isomorphisms: 
+        $$g_1: \text{pred}(W_2, f(a_1), <_2) \rightarrow \text{pred}(W_1, a_1, <_1) \text{ and } g_2: \text{pred}(W_1, a_2, <_1) \rightarrow \text{pred}(W_2, f(a_2), <_2)$$
+        We know $\text{pred}(W_2, f(a_2), <_2)  < \text{pred}(W_2, f(a_1), <_2)$ so we can restrict the domain of $g_1$ to be $\text{pred}(W_2, f(a_2), <_2)$. Let $g_1' = g_1 |_{\text{pred}(W_2, f(a_2), <_2)}$. It's easy to check that $g_1'$ is still an order isomorphism, and that the composition of two isomorphisms.\\
+        In particular, $g_1' \circ g_2: \text{pred}(W_1, a_2, <_1) \rightarrow \text{pred}(W_1, a_1, <_1)$ is an order isomorphism. However notice that since $a_1 < a_2$, $\text{pred}(W_1, a_1, <_1) < \text{pred}(W_1, a_2, <_1)$. This means $g_1' \circ g_2$ is an order isomorphism from $\text{pred}(W_1, a_2, <_1)$ to an initial segment of itself, namely $\text{pred}(W_1, a_1, <_1)$, which contradicts Lemma 22A. Therefore $f(a_1) < f(a_2)$, $f: W_1 \rightarrow B$ is an order isomorphism, and $B \subset W_2$ is some initial segment of $W_2$. This proves that (2) holds.\vspace{1em}\\
+        Finally we show that such isomorphism $f$ is unique. Let $h$ be some order isomorphism from $W_1$ to $B \in W_2$. Consider $A = \{w \in W_1 \ |\ f(w) \neq h(w)\}$. Suppose $A$ is nonempty and let $t \in A$ be the $<_1$-minimal element of $A$. Then $f(t) < f(w)$ and $h(t) < h(w)$ for all $w \neq t \in A$. Since $f(t) \neq h(t)$ by trichotomy we have either $f(t) < h(t)$ or $f(t) > h(t)$. WLOG assume $f(t) < h(t)$, since if $f(t) > h(t)$ we can simply switch the roles of $h$ and $t$\\
+        Since $h$ and $f$ are order isomorphisms, we can take some $s = h^{-1}(f(t)) \in W_1$ so that $f(t) = h(s)$. We have that 
+        \begin{align*}
+            &h(s) = f(t) < h(t) \\
+            &\implies s < t \tag{$h$ is an order isomorphism}\\
+            &\implies f(s) < f(t) = h(s) \tag{$f$ is an order isomorphism}\\
+            &\implies f(s) \neq h(s)\\
+            &\implies s \in A
+        \end{align*}
+        But we also have $s < t$. This contradicts minimality of $t \in A$. Therefore $A = \emptyset$ and $f = h$ is the unique isomorphism. \vspace{1em}\\
+        In the case that $W_1 \cong W_2$, simply replace $B$ in the above argument of uniqueness with $W_2$. \es
+    \end{exercise}
+    \begin{exercise}
+        Prove Theorem 23A I.
+        \begin{center}
+            \textbf{Theorem 23A I}: Let $\alpha, \beta$ be ordinals. If $x \in \alpha$ then $x$ is an ordinal and $x = \{\beta \in \alpha : \beta < x\}$
+        \end{center}
+        \so We begin by showing $x$ is an ordinal. Since $\alpha$ is an ordinal, so $x\subseteq \alpha$. That is $\forall \gamma \in x, \gamma \in \alpha$. Then every $\gamma$ satisfies the well-order $\in_\alpha$ by definition. The $\in_\alpha$-minimal element, say $r \in \alpha$, is also an element of $x$ by its own minimality, i.e $r \in_\alpha \zeta$ for all $\zeta \in \alpha$ then $r \in_\alpha \zeta$ for a subset $x$ of $\alpha$. So $x$ is well-ordered by $\in_\alpha$. To show $x$ is transitive, let $\gamma \in x$ and let $\delta \in \gamma$. We want to show $\delta \in x$. Since $\delta, \gamma, x \in \alpha$, we have $\delta \in_\alpha \gamma \in_\alpha x \in_\alpha \alpha$. By transitivity of $\in_\alpha$, we have $\delta \in_\alpha x$ and by definition of $\in_\alpha x$ we have $\delta \in x$, as needed.\vspace{1em}\\
+        Now we show $x = \{\beta \in \alpha : \beta < x\}$. Since we know $x$ is an ordinal and $\beta < x \iff \beta \in x$, so $\{\beta \in \alpha : \beta < x\} \subseteq x$. Now for all $\gamma \in X$, since $\gamma$ and $x$ are both ordinals, we have $\gamma < x$. In addition, $\gamma \in x \in \alpha$ so $\gamma \in \{\beta \in \alpha : \beta < x\}$ and $x \subseteq \{\beta \in \alpha : \beta < x\}$, as wanted. \es
+    \end{exercise}
+    \begin{exercise}
+        Finish the proof of Theorem 26B.\vspace{1em}\\
+        \so \begin{itemize}
+            \item[(1)] Suppose $g$ is a $\delta-$approximation of $F$, and $g'$ is a $\delta'-$approximation of $F$ for some $F: \mathbb{V} \rightarrow \mathbb{V}$. By definition we have $\forall \epsilon < \delta$ and $\epsilon' < \delta', \quad g(\epsilon) = F(g \upharpoonright \epsilon)$ and $g'(\epsilon') = F(g' \upharpoonright \epsilon')$. Since ordinals are transitive and well-ordered by $\in$, WLOG we assume $\delta \leq \delta'$ so $\delta \cap \delta' = \delta$. We proceed by transfinite induction on $\epsilon < \delta$.
+            
+            Base case: for $\epsilon = 0$, $g\upharpoonright(0) = g'\upharpoonright(0)$ holds by vacuousness (i.e. $g\upharpoonright(0) = g'\upharpoonright(0)$ is the empty function).
+
+            IH: Suppose $g\upharpoonright(\epsilon) = g'\upharpoonright(\epsilon)$ for all $\epsilon < \delta$.
+
+            If $\delta$ is a limit ordinal, then for all $\gamma < \delta, \exists \epsilon \quad \gamma < \epsilon < \delta$. Since ordinals are transitive, $\gamma \in \epsilon.$ By IH, $g\upharpoonright(\epsilon) = g'\upharpoonright(\epsilon)$ so $g(\gamma) = g'(\gamma)$. Thus $g\upharpoonright(\delta)$ and $ g'\upharpoonright(\delta)$ coincide for all $\gamma < \delta$ so they are equal.
+
+            If $\delta$ is a successor ordinal, then $\delta = \gamma + 1$ for some ordinal $\gamma$. Again by IH we can easily show that $g$ and $g'$ agree on every $\beta < \gamma < \gamma + 1 = \delta$, that is $g \upharpoonright (\gamma)$ = $g'\upharpoonright (\gamma)$, \\
+            It follows that 
+            \begin{align*}
+                g(\gamma) &= F(g \upharpoonright (\gamma)) \tag{$g$ is $\delta$-approximation of $F$}\\
+               & = F(g' \upharpoonright (\gamma)) \tag{By IH and $F$ is a function}\\
+                & = g'(\gamma)  \tag{$g'$ is $\delta$-approximation of $F$}
+            \end{align*}
+            Therefore, $g \upharpoonright (\delta)$ = $g'\upharpoonright (\delta)$. \es
+
+            \item[(2)]We now show by induction on $\epsilon < \delta \in \mathbb{ON}$ that there is a $\delta$-approximation of $F$.
+
+            Base case: $\delta = 0$. $g\upharpoonright 0$ is an empty function, which is a $\delta$-approximation of $F$ by vacuousness, and thus it's obviously unique
+
+            IH: Suppose for all $\epsilon < \delta$, there is some unique $g_\epsilon: \epsilon \rightarrow \operatorname{ran} g_\epsilon$ that is a $\delta$-approximation of $F$.
+
+            If $\delta$ is a successor ordinal, then let $\delta = \gamma + 1$ for some ordinal $\gamma$. Let $g: \delta \rightarrow \operatorname{ran} g$ be defined as for all $g(\beta) = \begin{cases}
+                g_\gamma(\beta), \quad \text{if $\beta < \gamma$}\\
+                F(g\upharpoonright \gamma) \quad \text{if $\beta = \gamma$}
+            \end{cases}$. Up to and not including $\gamma$, we have $g = g_\gamma$ is a approximation of $F$ by IH, and we define $g$ to be an approximation of $F$ at $\gamma$ explicitly by definition. So $g$ is a $\delta$ approximation of $F$.
+
+            If $\delta$ is a limit ordinal, then for all $\gamma < \delta, \exists \epsilon \quad \gamma < \epsilon < \delta$. Since ordinals are transitive, $\gamma \in \epsilon$. By IH, there is some $g_\epsilon: \epsilon \rightarrow \operatorname{ran} g_\epsilon$ such that 
+            $$\forall \beta < \epsilon, g_\epsilon(\beta) = F(g_\epsilon \upharpoonright \beta)$$
+            Choose $\beta = \gamma < \epsilon$, then
+            $$ g_\epsilon(\gamma) = F(g_\epsilon \upharpoonright \gamma)$$
+            This holds for all $\gamma < \delta$, so we define $g(\gamma) = g_\epsilon(\gamma)$ for each choice of $\epsilon$, which is a $\delta$-approximation of $F$ by definition. Lastly, $g$ is unique since each of our choice of $g_\epsilon$ is unique by IH.
+
+            \item[(3)] We again show this by transfinite induction on $\alpha \in \mathbb{ON}$. The idea is very similar to the method used the previous parts, where we consider $\alpha$ being limit or successor. Base case is $\alpha = 1$ which is trivial. We proceed to inductive step.
+
+            IH: Assume $G(\epsilon) = F(G \upharpoonright \epsilon)$ for all $\epsilon<\alpha$.
+            We let $G \upharpoonright \epsilon = g\upharpoonright \epsilon = g_\epsilon$ where $g$ is our unique choice of $\delta$-approximation of $F$ in (2). Observe that the way we choose $g$ in part (2) ensures that $g$ extends every thing before it, namely, $g$ is also a $\gamma$-approximation of $F$ for all $\gamma < \delta$. Thus $G$ is a $\delta$-approximation for all $\alpha \in \mathbb{ON}$.
+
+            \item[(4)] Since our choice of $g_\epsilon$'s is unique and $G$ is defined point-wise based on $g_\epsilon$'s, it must also be unique. \es.
+        \end{itemize}
+    \end{exercise}
+\section{Cardinal Numbers}
+    \begin{exercise}
+        Prove Corollary 31D (I).\vspace{1em}\\
+        \so We first show that $\kappa \boxplus \lambda = |\kappa \times \{0\} \cup \lambda \times \{1\}| = \max\{\kappa, \lambda\} = \kappa$. Since we are working with infinite cardinals, let $\lambda = \aleph_\alpha$ for some ordinal $\alpha$ and assume WLOG assume $\kappa \geq \lambda$. We construct a bijection between $\kappa \boxplus \lambda$ and $ \max\{\kappa, \lambda\}$ using transfinite induction on $\aleph_\alpha = \lambda$. The idea is similar to Hilbert's hotel argument, but we extend the size of the set to general cardinalities rather than just "countable and uncountable" sets. The Hilbert's hotel is the base case, $\omega = \aleph_0$.\vspace{1em}\\
+        We construct the bijection as follows: \\
+        For $\lambda = \omega = \aleph_0$, let $f: \kappa \boxplus \lambda \rightarrow \kappa$, $f(\beta, 0) = \beta$ and $f(\gamma, 1) = \gamma + \aleph_0 $, for all $\beta < \lambda$ and $\gamma < \kappa$. Since this function $f$ only involves "right-shifting" (i.e. ordinal addition), we can easily find the inverse by left-shifting, since $\aleph_0$ and $\kappa$ are both infinite, we can always perform right shift. \\
+        We continue to this process with transfinite induction on $\alpha$ in $\aleph_\alpha$, until we have $\aleph_\alpha = \kappa$.\vspace{1em}\\
+        Thus we have a bijection between $\kappa \boxplus \lambda$ and $\max\{\kappa, \lambda\}$. Since both are cardinals, $\kappa \boxplus \lambda = \max\{\kappa, \lambda\}$ by Cantor-Berstein Theorem.
+        $$$$
+        Now we show $\kappa \times \lambda = \max\{\kappa, \lambda\}$. Again, WLOG assume $\kappa \geq \lambda$. By Theorem 31C, $\kappa \otimes \lambda \leq \kappa \otimes \kappa = \kappa$. Also, there is an natural injection from $\kappa$ to $\kappa \otimes \lambda$. so $|\kappa| = \kappa \leq \kappa \otimes \lambda \leq \kappa \otimes \kappa = \kappa$. These are all cardinals, so their cardinalities are just themselves. By Lemma 3C we have $\kappa \otimes \lambda = \kappa$. Therefore, $\kappa \boxplus \lambda = \kappa \otimes \lambda = \max\{\kappa, \lambda\}$, as wanted. \es
+    \end{exercise}
+    \begin{exercise}
+        Finish the proof of Corollary 31D (II).\vspace{1em}\\
+        We use the ordering $<_\text{ML}$ from the proof of Theorem 31C, but extending it to $n$ many entries. Namely, $ (\alpha_1, \cdots, \alpha_n) <_{\mathrm{ML}} (\alpha_1', \cdots \alpha_n')$ if and only if
+        \begin{center}
+            $\max\{\alpha_1, \cdots, \alpha_n\} < \max\{\alpha_1', \cdots, \alpha_n'\} \text{ or } $\\
+            $\max\{\alpha_1, \cdots, \alpha_n\} = \max\{\alpha_1', \cdots, \alpha_n'\} \text{ and } (\alpha_1, \cdots, \alpha_n) <_{\mathrm{lex}} (\alpha_1, \cdots, \alpha_n)$.
+        \end{center}
+        We can replace every occurrence of $(\alpha_1, \alpha_2)$ and $(\alpha_1', \alpha_2')$ in the proof of Theorem 31C with $(\alpha_1, \cdots, \alpha_n)$ and $(\alpha_1', \cdots, \alpha_n')$ respectively. By transfinite induction, we have some $\varphi_n: \kappa^n \rightarrow \kappa$ which is an injection. Now let $\varphi: \kappa^{<\omega} \rightarrow \omega \times \kappa$ be defined as (Note that $\kappa^{<\omega} = \bigcup_{n\in \omega}k_n$)
+        \begin{align*}
+            \varphi(\kappa_n) = \varphi_n, \quad \forall \kappa_n \in \kappa^{<\omega}.
+        \end{align*}
+        It is easy to see that $\varphi$ is an injection since each $\varphi_n \in \operatorname{ran} \varphi$ is injective.
+        It follows that 
+        \begin{align*}
+            |\kappa^{<\omega}| &\leq |\omega \times \kappa| \tag{Cantor-Berstein}\\
+                               &= \omega \otimes \kappa \tag{Def of cardinal multiplication} \\
+                               &= \max\{\omega, \kappa\} \tag{Corollary 31D (I)}\\
+                               &= \kappa \tag{$\omega = \aleph_0$ is the smallest infinite cardinal}
+        \end{align*}
+    \end{exercise}
+    \begin{exercise}
+        Finish the proof of Corollary 31F.\vspace{1em}\\
+        \so If $\alpha$ is finite, then the statement is trivial. So we consider $\alpha \geq \omega$. 
+        
+        First note that if $R$ well orders $\alpha \times \alpha$, it well-orders $\alpha \times \{0\}$ so it well-orders $\alpha$.\\
+        Now let $\kappa = \sup S$. If there is a bijection $f$ between $\kappa$ and $\alpha$, then we can define a well-ordering $R'$ where $\beta R' \beta'$ if and only if $\beta = f(\gamma), \beta' = f(\gamma')$ and $\gamma R \gamma'$ for all $\gamma, \gamma' \in \alpha$. Then $\kappa \in S$, but $\kappa = \sup S$ so $\kappa = \max S$. \\
+        However, using Hibert's hotel argument, $\kappa + 1$ is also bijective to $\kappa$ and thus $\alpha$, so $\kappa + 1$ can be well-ordered by some $R$ too. Then $\kappa + 1 \in S$, but $\kappa + 1 > \kappa = \sup S$ is a contradiction. Therefore there must not be a bijection from $\alpha$ to $\kappa$, i.e. $\kappa \neq \alpha$. Now by definition of $\kappa$, we already know $\alpha \leq \sup S = \kappa$, so we have $\alpha < \kappa$.\vspace{1em}\\
+        It remains to show that $\kappa$ is a cardinal. We know by definition of $\kappa$ that it is a limit ordinal. We have shown that $\alpha$ is strictly less than $\kappa$, that means there always exists some $\delta$ such that $\alpha < \delta < \kappa$. In other words, $\alpha$ is always bounded by $\delta$. Every $\zeta \in S$ is bijective to $\alpha$ by definition of $S$, so $\zeta$ is also bounded above by $\delta \in \kappa$. This means that we cannot have a cofinal map from $\zeta \in S$ (so essentially every ordinal $\zeta$ below $\kappa)$ to $\kappa$. On the other hand, $\kappa$ is limit ordinal so we can easily construct a cofinal map into itself. Therefore, $\kappa$ is the least ordinal for a cofinal map into itself to exist, that is $\operatorname{cof}(\kappa) = \kappa$. Thus, $\kappa$ is regular, and we know regular ordinals are cardinals by Lemma 42A. \es.
+    \end{exercise}
+    \begin{exercise}
+        Explain why $\leq_{\text{ML}}$ is used instead of simply $\leq_{\text{lex}}$ in the proof of Theorem 31C.\\
+        \so Because $<_{\text{lex}}$ is used for ordinal multiplication, but not cardinal multiplication, so capture $\alpha \otimes \alpha$ is still a cardinal, we can't use the regular lexicographical ordering as that would only grantee it's an ordinal.
+    \end{exercise}
+    \begin{exercise}
+        Explain where AC is used in the proof of Lemma 32B.
+    \end{exercise}
+    \begin{exercise}
+        Prove Lemma 34B.\vspace{1em}\\
+        \so Finite cases are easily to verify, so we assume these cardinals are infinite. By definition we have 
+        \begin{align*}
+            \kappa^{\lambda \boxplus \mu} &= \kappa^{|\lambda \times \{0\} \cup \mu\times \{1\}|}\\
+            &= \left |\prescript{|\lambda \times \{0\} \cup \mu\times \{1\}|}{}{\kappa}\right|
+        \end{align*}
+        Since $\lambda \times \{0\} \cap \mu\times \{1\} = \emptyset$, $|\lambda \times \{0\} \cup \mu\times \{1\}| = |\lambda \times \{0\} | \boxplus |\mu\times \{1\}|$. It follows that 
+        $$\left |\prescript{|\lambda \times \{0\} \cup \mu\times \{1\}|}{}{\kappa}\right| = \left |\prescript{|\lambda \times \{0\} |}{}{\kappa}\right| \boxplus \left |\prescript{|\mu\times \{1\}|}{}{\kappa}\right|$$
+        So by Corollary 31D, we have 
+        $$ \kappa^{|\lambda \times \{0\} \cup \mu\times \{1\}|} = \kappa^{|\lambda \times \{0\}|} \boxplus \kappa^{| \mu\times \{1\}|} = \kappa^{|\lambda \times \{0\}|} \otimes \kappa^{| \mu\times \{1\}|}$$
+        Now we can verify using a similar idea that 
+        \begin{align*}
+            (\kappa^\lambda)^\mu &= \left |\prescript{\mu}{}{\kappa^\lambda}\right|\\
+            &= \left| \prescript{\mu}{}{\prescript{\lambda}{}{\kappa}}\right|\\
+            &= \left | \prescript{\lambda \times \mu}{}{\kappa} \right |
+        \end{align*}
+    \end{exercise}
+\section{Cofinality}
+    \begin{exercise}
+        Prove Lemma 42A.\vspace{1em}\\
+        \textbf{Lemma 42A} If $\alpha$ is a regular ordinal, then $\alpha$ is a cardinal.\vspace{1em}\\
+        \so Suppose $\alpha$ is a regular cardinal, then $\operatorname{cof}(\alpha) = \alpha$. By Lemma 41A, there is a strictly increasing map $f: \alpha \rightarrow \alpha$. Any strictly increasing map is injective, and any injective map from $\alpha$ to itself is onto, so $f$ is a bijection from $\alpha$ to itself. Now by definition there is a bijection from $|\alpha|$ to $\alpha$. Since $\alpha$ is a limit ordinal, this map is unbounded thus cofinal. If $|\alpha| < \alpha = \operatorname{cof}(\alpha)$, then $\operatorname{cof}(\alpha)$ wouldn't be the smallest set such that a cofinal map into $\alpha$ exists, because $|\alpha| < \alpha$ would be. That contradicts the definition of cofinality thus we must have $
+        \alpha = |\alpha|$, $\alpha$ is a cardinal. \es
+    \end{exercise}
+\section{Combinatorial Set Theory}
+No exercises given for this section.
+\section{Martin’s Axioms}
+    \begin{exercise}
+        (Group X) Show that subset \(N\) in space \((X, \mathcal{T})\) is nowhere dense iff
+        \[
+        \forall x \in X \quad \forall U \in \eta(x) \quad \exists V \in \mathcal{T} \quad V \subseteq U \text{ and } V \cap N = \emptyset.
+        \]
+    \end{exercise}
+    
+    \begin{exercise}
+        (Group X) Show that the complement of an open dense subset is closed nowhere dense.
+    \end{exercise}
+    
+    \begin{exercise}
+       (Group X) Show that topology \( \text{MA}(\kappa) \) implies set \( \text{MA}(\kappa) \).
+    \end{exercise}
+\section{Trees}
+No exercises given for this section.
+
+\section{Čech–Stone Compactiﬁcation}
+    \begin{exercise}
+        (Group X) Find the \( p \)-limits of sequences in the discrete subspace \(\omega\) of \(\beta\omega\).
+    \end{exercise}
+    
+    \begin{exercise}
+        (Group X) Show that \(\beta\omega\) is \( p \)-compact for all \( p \in \omega^* \).
+    \end{exercise}
+\section{Other Assigned Exercises}
+\end{document}
